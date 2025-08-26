@@ -45,12 +45,17 @@ public class MemberView {
 				break;
 			case 4: 
 				String memberId1 = this.inputMemberId();
-				member = this.modifyMember(memberId1);
-				result = mController.updateMember(member);
-				if(result > 0) {
-					printMessage("회원 정보 수정 완료");
-				}else {					
-					printMessage("회원 정보 수정이 완료되지 않았습니다.");
+				member = mController.findOneById(memberId1);
+				if(member != null) {					
+					member = this.modifyMember(memberId1);
+					result = mController.updateMember(member);
+					if(result > 0) {
+						printMessage("회원 정보 수정 완료");
+					}else {					
+						printMessage("회원 정보 수정이 완료되지 않았습니다.");
+					}
+				} else {
+					this.printMessage("해당 정보가 존재하지 않습니다.");
 				}
 				break;
 			case 5: 
