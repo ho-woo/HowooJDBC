@@ -104,8 +104,8 @@ public class MemberDAO {
 												+"',DEFAULT)";
 		int result = 0;
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","HOWOOJDBC","HOWOOJDBC");
+			Class.forName(DRIVER_NAME);
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			stmt = conn.createStatement();
 			result = stmt.executeUpdate(query);
 		} catch (ClassNotFoundException e) {
@@ -122,10 +122,56 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
 	public int updateMember(Member member) {
-		return 0;
+		Connection conn = null;
+		Statement stmt = null;
+		String query = "UPDATE MEMBER_TBL SET MEMBER_PWD = '"+member.getMemberPwd()+
+										"', MEMBER_NAME = '"+member.getMemberName()+
+										"', GENDER = '"+member.getGender()+
+										"', AGE = "+member.getAge()+
+										", EMAIL = '"+member.getEmail()+
+										"', PHONE = '"+member.getPhone()+
+										"', ADDRESS = '"+member.getAddress()+
+										"', HOBBY = '"+member.getHobby()+
+										"' WHERE MEMBER_ID = '"+member.getMemberId()+"'";
+		int result = 0;
+		try {
+			Class.forName(DRIVER_NAME);
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(query);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
+	
 	public int delectMember(String memberId) {
-		return 0;
+		Connection conn = null;
+		Statement stmt = null;
+		String query = "DELETE FROM MEMBER_TBL WHERE MEMBER_ID = '"+memberId+"'";
+		int result = 0;
+		try {
+			Class.forName(DRIVER_NAME);
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(query);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

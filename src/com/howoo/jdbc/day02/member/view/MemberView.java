@@ -46,8 +46,22 @@ public class MemberView {
 			case 4: 
 				String memberId1 = this.inputMemberId();
 				member = this.modifyMember(memberId1);
+				result = mController.updateMember(member);
+				if(result > 0) {
+					printMessage("회원 정보 수정 완료");
+				}else {					
+					printMessage("회원 정보 수정이 완료되지 않았습니다.");
+				}
 				break;
-			case 5: break;
+			case 5: 
+				String memberId2 = this.inputMemberId();
+				result = mController.deleteMember(memberId2);
+				if(result > 0) {
+					printMessage("회원 정보 삭제 완료");
+				}else {					
+					printMessage("회원 정보 삭제가 완료되지 않았습니다.");
+				}
+				break;
 			case 0: 
 				this.printMessage("프로그램을 종료합니다.");
 				break finish;
@@ -100,17 +114,18 @@ public class MemberView {
 		System.out.print("수정할 이름 : ");
 		member.setMemberName(sc.next());
 		System.out.print("수정할 성별 : ");
-		member.setMemberPwd(sc.next());
+		member.setGender(sc.next().charAt(0));
 		System.out.print("수정할 나이 : ");
-		member.setMemberPwd(sc.next());
+		member.setAge(sc.nextInt());
 		System.out.print("수정할 이메일 : ");
-		member.setMemberPwd(sc.next());
+		member.setEmail(sc.next());
 		System.out.print("수정할 핸드폰 : ");
-		member.setMemberPwd(sc.next());
+		member.setPhone(sc.next());
 		System.out.print("수정할 주소 : ");
-		member.setMemberPwd(sc.next());
+		sc.next();
+		member.setAddress(sc.nextLine());
 		System.out.print("수정할 취미 : ");
-		member.setMemberPwd(sc.next());
+		member.setHobby(sc.next());
 		return member;
 		
 	}

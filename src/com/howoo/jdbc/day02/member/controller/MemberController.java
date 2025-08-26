@@ -26,10 +26,12 @@ public class MemberController {
 		return result;
 	}
 	public int updateMember(Member member) {
-		return 0;
+		int result = mDao.updateMember(member);
+		return result;
 	}
 	public int deleteMember(String memberId) {
-		return 0;
+		int result = mDao.delectMember(memberId);
+		return result;
 	}
 	
 }
